@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const config = require('config');
-// const shortid = require('shortid');
 const User = require('../models/User');
 const Post = require('../models/Post');
 const auth = require('../middleware/auth.middleware');
@@ -8,11 +7,7 @@ const router = Router();
 
 router.post('/generate', auth, async (req, res) => {
   try {
-    const baseUrl = config.get('baseUrl');
     const { title, text } = req.body;
-
-    // const code = shortid.generate();
-    console.log(req.user.userId);
 
     const candidate = await User.findById(req.user.userId);
 
