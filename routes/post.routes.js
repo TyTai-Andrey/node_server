@@ -17,7 +17,7 @@ router.post('/generate', auth, async (req, res) => {
     const candidate = await User.findById(req.user.userId);
 
     if (candidate.role !== 'admin') {
-      return res.json({ message: 'Вы не администратор' });
+      return res.status(500).json({ message: 'Вы не администратор' });
     }
 
     const post = new Post({
@@ -35,7 +35,7 @@ router.post('/generate', auth, async (req, res) => {
 
 router.get('/', auth, async (req, res) => {
   try {
-    const posts = await Post.find({ owner: req.user.userId });
+    const posts = await Post.find({});
     res.json(posts);
   } catch (e) {
     res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' });
